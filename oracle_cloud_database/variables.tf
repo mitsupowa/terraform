@@ -13,12 +13,12 @@ variable "compartment_ocid" {}
 
 # Choose an Availability Domain
 variable "availability_domain" {
-  default = "2"
+  default = "1"
 }
 
 # DBSystem specific 
 variable "db_system_shape" {
-  default = "BM.DenseIO2.52"
+  default = "VM.Standard2.2"
 }
 
 variable "cpu_core_count" {
@@ -42,11 +42,11 @@ variable "db_disk_redundancy" {
 }
 
 variable "db_system_display_name" {
-  default = "MyTFDBSystem"
+  default = "PruebaBDPlexus"
 }
 
 variable "hostname" {
-  default = "myoracledb"
+  default = "myoracledbplexus"
 }
 
 variable "host_user_name" {

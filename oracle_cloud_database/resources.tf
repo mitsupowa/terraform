@@ -9,7 +9,7 @@ resource "oci_database_db_system" "test_db_system" {
   db_home {
     database {
       admin_password = "${var.db_admin_password}"
-      db_name        = "aTFdb1"
+      db_name        = "plexusMa"
       character_set  = "${var.character_set}"
       ncharacter_set = "${var.n_character_set}"
       db_workload    = "${var.db_workload}"
@@ -26,7 +26,7 @@ resource "oci_database_db_system" "test_db_system" {
     }
 
     db_version   = "${var.db_version}"
-    display_name = "MyTFDBHome1"
+    display_name = "MapfreHome"
   }
 
   disk_redundancy = "${var.db_disk_redundancy}"
@@ -47,31 +47,6 @@ resource "oci_database_db_system" "test_db_system" {
   freeform_tags = {
     "Department" = "Finance"
   }
-}
-
-// The creation of an oci_database_db_system requires that it be created with exactly one oci_database_db_home. Therefore the first db home will have to be a property of the db system resource and any further db homes to be added to the db system will have to be added as first class resources using "oci_database_db_home".
-resource "oci_database_db_home" "test_db_home" {
-  db_system_id = "${oci_database_db_system.test_db_system.id}"
-
-  database {
-    admin_password = "${var.db_admin_password}"
-    db_name        = "aTFdb2"
-    character_set  = "${var.character_set}"
-    ncharacter_set = "${var.n_character_set}"
-    db_workload    = "${var.db_workload}"
-    pdb_name       = "${var.pdb_name}"
-
-    freeform_tags = {
-      "Department" = "Finance"
-    }
-
-    db_backup_config {
-      auto_backup_enabled = true
-    }
-  }
-
-  db_version   = "${var.db_version}"
-  display_name = "MyTFDBHome2"
 }
 
 resource "oci_database_backup" "test_backup" {

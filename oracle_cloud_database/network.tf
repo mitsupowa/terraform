@@ -3,15 +3,15 @@
 resource "oci_core_vcn" "vcn" {
   cidr_block     = "10.1.0.0/16"
   compartment_id = "${var.compartment_ocid}"
-  display_name   = "TFExampleVCNDBSystem"
-  dns_label      = "tfexvcndbsys"
+  display_name   = "RedDbPlexusVNC"
+  dns_label      = "plexusvcndbsys"
 }
 
 resource "oci_core_subnet" "subnet" {
   availability_domain = "${data.oci_identity_availability_domain.ad.name}"
   cidr_block          = "10.1.20.0/24"
-  display_name        = "TFExampleSubnetDBSystem"
-  dns_label           = "tfexsubdbsys"
+  display_name        = "RedDbPlexus"
+  dns_label           = "redplexusdns"
   security_list_ids   = ["${oci_core_vcn.vcn.default_security_list_id}"]
   compartment_id      = "${var.compartment_ocid}"
   vcn_id              = "${oci_core_vcn.vcn.id}"
@@ -21,14 +21,14 @@ resource "oci_core_subnet" "subnet" {
 
 resource "oci_core_internet_gateway" "internet_gateway" {
   compartment_id = "${var.compartment_ocid}"
-  display_name   = "TFExampleIGDBSystem"
+  display_name   = "RedDbPlexusGateway"
   vcn_id         = "${oci_core_vcn.vcn.id}"
 }
 
 resource "oci_core_route_table" "route_table" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_vcn.vcn.id}"
-  display_name   = "TFExampleRouteTableDBSystem"
+  display_name   = "RedDbPlexusRouteTable"
 
   route_rules {
     destination       = "0.0.0.0/0"
@@ -40,11 +40,11 @@ resource "oci_core_route_table" "route_table" {
 resource "oci_core_network_security_group" "test_network_security_group" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_vcn.vcn.id}"
-  display_name   = "displayName"
+  display_name   = "RedDbPlexusSecurityGroup"
 }
 
 resource "oci_core_network_security_group" "test_network_security_group_backup" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_vcn.vcn.id}"
-  display_name   = "displayName"
+  display_name   = "RedDbPlexusSecurityGroupBackup"
 }
